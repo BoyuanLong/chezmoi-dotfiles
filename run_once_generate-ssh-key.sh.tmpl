@@ -1,0 +1,6 @@
+#!/bin/bash
+# Generate SSH key if one doesn't already exist
+if [ ! -f "$HOME/.ssh/id_ed25519" ] && [ ! -f "$HOME/.ssh/id_rsa" ]; then
+    ssh-keygen -t ed25519 -C {{ .email | quote }} -f "$HOME/.ssh/id_ed25519" -N "" || \
+        ssh-keygen -t rsa -b 4096 -C {{ .email | quote }} -f "$HOME/.ssh/id_rsa" -N ""
+fi

@@ -1,0 +1,4 @@
+#!/bin/bash
+# Configure git user.name and user.email from chezmoi data
+git config --global user.name {{ .name | quote }}
+git config --global user.email {{ .email | quote }}

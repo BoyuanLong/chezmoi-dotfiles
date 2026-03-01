@@ -1,0 +1,59 @@
+[".dotfiles/vim/bundle/lightline.vim"]
+    type = "archive"
+    url = "https://github.com/itchyny/lightline.vim/archive/d6a07ea376a4b7372aa59e7ea6a051c9470bb4d0.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/nerdcommenter"]
+    type = "archive"
+    url = "https://github.com/preservim/nerdcommenter/archive/66c07e4083ab02ed2540ac289cc602c70b858c13.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/nerdtree"]
+    type = "archive"
+    url = "https://github.com/preservim/nerdtree/archive/9b465acb2745beb988eff3c1e4aa75f349738230.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/vim-colors-solarized"]
+    type = "archive"
+    url = "https://github.com/altercation/vim-colors-solarized/archive/528a59f26d12278698bb946f8fb82a63711eec21.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/vim-cpp-modern"]
+    type = "archive"
+    url = "https://github.com/bfrg/vim-cpp-modern/archive/e8d916e7addb132d96691252bbae22a57fea0c41.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/zsh/plugins/zsh-completions"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-completions/archive/c160d09fddd28ceb3af5cf80e9253af80e450d96.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/zsh/plugins/zsh-syntax-highlighting"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/1715f39a4680a27abd57fc30c98a95fdf191be45.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/zsh/plugins/zsh-autosuggestions"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-autosuggestions/archive/ae315ded4dba10685dbbafbfa2ff3c1aefeb490d.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/tmux/plugins/tmux-prefix-highlight"]
+    type = "archive"
+    url = "https://github.com/tmux-plugins/tmux-prefix-highlight/archive/489a96189778a21d2f5f4dbbbc0ad2cec8f6c854.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/shell/plugins/dircolors-solarized"]
+    type = "archive"
+    url = "https://github.com/seebi/dircolors-solarized/archive/2249310a957977e523b62c7d916ba40c2165869c.tar.gz"
+    exact = true
+    stripComponents = 1

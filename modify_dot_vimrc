@@ -1,0 +1,16 @@
+#!/bin/bash
+# Read existing content from stdin (chezmoi passes current file contents)
+contents="$(cat)"
+source_line='source ~/.dotfiles/vim/vimrc.shared'
+
+if echo "$contents" | grep -qF "$source_line"; then
+    # Already has the source line, output unchanged
+    printf '%s' "$contents"
+else
+    # Prepend source line to existing content
+    if [ -n "$contents" ]; then
+        printf '%s\n%s' "$source_line" "$contents"
+    else
+        printf '%s\n' "$source_line"
+    fi
+fi

@@ -1,0 +1,7 @@
+#!/bin/bash
+# Configure git global settings
+# Hash of git config files to trigger re-run on changes:
+# gitconfig: {{ include "dot_dotfiles/git/gitconfig" | sha256sum }}
+# gitignore_global: {{ include "dot_dotfiles/git/gitignore_global" | sha256sum }}
+git config --global core.excludesfile ~/.dotfiles/git/gitignore_global
+git config --global include.path ~/.dotfiles/git/gitconfig
