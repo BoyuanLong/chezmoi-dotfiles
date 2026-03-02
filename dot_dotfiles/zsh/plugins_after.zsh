@@ -1,7 +1,11 @@
 # External plugins (initialized after)
 
-# Syntax highlighting
+# fzf-git.sh (git helpers for fzf, must be before syntax highlighting)
+if [[ -f ~/.dotfiles/zsh/plugins/fzf-git.sh/fzf-git.sh ]]; then
+    source ~/.dotfiles/zsh/plugins/fzf-git.sh/fzf-git.sh
+fi
 
+# Syntax highlighting
 source ~/.dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)

@@ -11,11 +11,11 @@ This is the chezmoi source directory. Files here are templates/sources that chez
 ## Layout
 
 - `dot_dotfiles/` → deploys to `~/.dotfiles/` (all config files)
-- `.chezmoiexternal.toml` — external plugin archives (10 plugins)
+- `.chezmoiexternal.toml` — external plugin archives (24 plugins)
 - `.chezmoi.toml.tmpl` — config template (prompts for git name/email)
 - `symlink_dot_vim` → creates `~/.vim` symlink
 - `modify_dot_*` — scripts that ensure source lines in rc files
-- `run_once_*` / `run_onchange_*` — setup scripts (git config, SSH key)
+- `run_once_*` / `run_onchange_*` — setup scripts (git config, SSH key, binary tools, TPM plugins)
 
 ## Editing Config Files
 

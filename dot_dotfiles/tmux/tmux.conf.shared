@@ -3,10 +3,6 @@ set -g default-terminal 'screen-256color'
 
 # act like vim
 setw -g mode-keys vi
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
 bind -r C-h select-window -t :-
 bind -r C-l select-window -t :+
 
@@ -42,12 +38,6 @@ set -g base-index 1
 
 # start pane numbers at 1 to match keyboard order with tmux order
 setw -g pane-base-index 1
-
-# easy resizing of panes
-bind -r J resize-pane -D 5
-bind -r K resize-pane -U 5
-bind -r H resize-pane -L 5
-bind -r L resize-pane -R 5
 
 # reenable automatic renaming for the current window
 bind N setw automatic-rename on \; display-message "automatic rename enabled"
@@ -89,15 +79,29 @@ bind P if-shell "[ \"$(tmux show-options -g prefix)\" = \"prefix C-a\" ]" '\
     set -g prefix C-a; display-message "passthrough disabled"; refresh-client -S; \
     '
 
-# plugin: prefix highlight
-run-shell ~/.dotfiles/tmux/plugins/tmux-prefix-highlight/prefix_highlight.tmux
+#---------------------
+# TPM plugins
+#---------------------
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-pain-control'
+set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-open'
+
+# prefix-highlight settings
 set -g @prefix_highlight_show_copy_mode 'on'
-set -g @prefix_highlight_copy_mode_attr 'fg=white,bg=yellow' # default is 'fg=default,bg=yellow'
+set -g @prefix_highlight_copy_mode_attr 'fg=white,bg=yellow'
 set -g @prefix_highlight_show_sync_mode 'on'
 set -g @prefix_highlight_sync_mode_attr 'fg=black,bg=green'
 set -g @prefix_highlight_prefix_prompt 'Pref'
 set -g @prefix_highlight_copy_prompt 'Copy'
 set -g @prefix_highlight_sync_prompt 'Sync'
+
+# tmux-continuum settings
+set -g @continuum-restore 'on'
 
 #### color (Solarized 256)
 set -g status-style bg=colour237,fg=colour136
@@ -115,3 +119,6 @@ set -g display-panes-colour colour33 #blue
 
 # clock
 setw -g clock-mode-colour colour64 #green
+
+# Initialize TPM (keep this line at the very bottom)
+run '~/.dotfiles/tmux/plugins/tpm/tpm'

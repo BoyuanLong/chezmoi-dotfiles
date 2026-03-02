@@ -3,6 +3,8 @@ set nocompatible " not vi compatible
 "------------------
 " Pathogen
 "------------------
+let g:polyglot_disabled = ['cpp'] " avoid conflict with vim-cpp-modern
+set rtp+=~/.dotfiles/zsh/plugins/fzf " fzf base runtime for fzf.vim
 execute pathogen#infect()
 
 "------------------
@@ -121,3 +123,35 @@ nnoremap L $
 " nerdtree
 nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
+
+" fzf.vim
+nnoremap <Leader>p :Files<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>rg :Rg<CR>
+
+" vim-fugitive
+nnoremap <Leader>gs :Git<CR>
+nnoremap <Leader>gd :Gdiffsplit<CR>
+nnoremap <Leader>gb :Git blame<CR>
+
+" undotree
+nnoremap <Leader>u :UndotreeToggle<CR>
+
+" ALE (lint on save only)
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_save = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
+" vim-gitgutter
+set updatetime=100
+
+" persistent undo
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.vim/undodir
+    if !isdirectory(&undodir)
+        call mkdir(&undodir, 'p')
+    endif
+endif

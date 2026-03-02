@@ -46,14 +46,104 @@
     exact = true
     stripComponents = 1
 
-[".dotfiles/tmux/plugins/tmux-prefix-highlight"]
-    type = "archive"
-    url = "https://github.com/tmux-plugins/tmux-prefix-highlight/archive/489a96189778a21d2f5f4dbbbc0ad2cec8f6c854.tar.gz"
-    exact = true
-    stripComponents = 1
-
 [".dotfiles/shell/plugins/dircolors-solarized"]
     type = "archive"
     url = "https://github.com/seebi/dircolors-solarized/archive/2249310a957977e523b62c7d916ba40c2165869c.tar.gz"
+    exact = true
+    stripComponents = 1
+
+# ZSH plugins
+
+[".dotfiles/zsh/plugins/fzf"]
+    type = "archive"
+    url = "https://github.com/junegunn/fzf/archive/50be8bc78e1b22d51bbb35069e361ae8027e68b4.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/zsh/plugins/fzf-tab"]
+    type = "archive"
+    url = "https://github.com/Aloxaf/fzf-tab/archive/0fbd5753f935dcb6899e5fb2a0fb9a3fd69f1ce0.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/zsh/plugins/zsh-history-substring-search"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-history-substring-search/archive/14c8d2e0ffaee98f2df9850b19944f32546fdea5.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/zsh/plugins/zsh-autopair"]
+    type = "archive"
+    url = "https://github.com/hlissner/zsh-autopair/archive/449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/zsh/plugins/fzf-git.sh"]
+    type = "archive"
+    url = "https://github.com/junegunn/fzf-git.sh/archive/34cd6c9d315d9b59b94721bd602c5769e919d686.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/zsh/plugins/zsh-you-should-use"]
+    type = "archive"
+    url = "https://github.com/MichaelAquilina/zsh-you-should-use/archive/ff371d6a11b653e1fa8dda4e61c896c78de26bfa.tar.gz"
+    exact = true
+    stripComponents = 1
+
+# Vim plugins
+
+[".dotfiles/vim/bundle/vim-fugitive"]
+    type = "archive"
+    url = "https://github.com/tpope/vim-fugitive/archive/61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/vim-surround"]
+    type = "archive"
+    url = "https://github.com/tpope/vim-surround/archive/3d188ed2113431cf8dac77be61b842acb64433d9.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/fzf.vim"]
+    type = "archive"
+    url = "https://github.com/junegunn/fzf.vim/archive/34a564c81f36047f50e593c1656f4580ff75ccca.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/ale"]
+    type = "archive"
+    url = "https://github.com/dense-analysis/ale/archive/69c945d5daecadf8e4c4c499d0a7babda748d603.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/vim-gitgutter"]
+    type = "archive"
+    url = "https://github.com/airblade/vim-gitgutter/archive/0acb772e76064cc406664ab595b58b3fac76488a.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/vim-repeat"]
+    type = "archive"
+    url = "https://github.com/tpope/vim-repeat/archive/65846025c15494983dafe5e3b46c8f88ab2e9635.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/undotree"]
+    type = "archive"
+    url = "https://github.com/mbbill/undotree/archive/d8f99084d98c32f651860eb0baaf89759f91debc.tar.gz"
+    exact = true
+    stripComponents = 1
+
+[".dotfiles/vim/bundle/vim-polyglot"]
+    type = "archive"
+    url = "https://github.com/sheerun/vim-polyglot/archive/f061eddb7cdcc614c8406847b2bfb53099832a4e.tar.gz"
+    exact = true
+    stripComponents = 1
+
+# Tmux Plugin Manager
+
+[".dotfiles/tmux/plugins/tpm"]
+    type = "archive"
+    url = "https://github.com/tmux-plugins/tpm/archive/99469c4a9b1ccf77fade25842dc7bafbc8ce9946.tar.gz"
     exact = true
     stripComponents = 1

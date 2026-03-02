@@ -1,0 +1,14 @@
+#!/bin/bash
+# Install TPM plugins when tmux config changes
+# tmux.conf.shared hash: {{ include "dot_dotfiles/tmux/tmux.conf.shared" | sha256sum }}
+
+set -euo pipefail
+
+TPM_DIR="$HOME/.dotfiles/tmux/plugins/tpm"
+
+if [ -x "$TPM_DIR/bin/install_plugins" ]; then
+    "$TPM_DIR/bin/install_plugins"
+    echo "TPM plugins installed"
+else
+    echo "TPM not found, skipping plugin install (run 'prefix + I' in tmux to install)"
+fi

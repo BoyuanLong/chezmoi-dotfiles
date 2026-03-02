@@ -4,49 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a personal dotfiles repository managed by [chezmoi](https://www.chezmoi.io/). It manages configuration files for zsh, vim, tmux, and git. Chezmoi deploys files to `~/.dotfiles/` and uses external archives (replacing git submodules) for plugins.
+This is a personal dotfiles repository that manages configuration files for zsh, vim, tmux, and git. It uses symlinks to install configurations from `~/.dotfiles` to the home directory and git submodules for external plugins.
 
 ## Installation and Updates
 
-**Initial installation on a new machine:**
+**Initial installation:**
 ```bash
-chezmoi init --apply <github-username>
+./install
 ```
 
-**Apply changes after editing source files:**
+**Update mode (skip existing symlinks and ssh key generation):**
 ```bash
-chezmoi apply -v
+./install -u
 ```
 
 **Update dotfiles from remote:**
 ```bash
-dfu  # alias defined in zsh/aliases.sh - runs chezmoi update
+dfu  # alias defined in zsh/aliases.sh - pulls and re-runs install
 ```
 
-**Edit a managed file:**
-```bash
-chezmoi edit ~/.dotfiles/zsh/aliases.sh
-```
-
-**See what would change:**
-```bash
-chezmoi diff
-```
-
-## Chezmoi Source Layout
-
-The chezmoi source directory (`~/.local/share/chezmoi/`) maps to the home directory:
-
-- `dot_dotfiles/` → `~/.dotfiles/` — all config files deployed here
-- `.chezmoiexternal.toml` — external plugin archives (replaces git submodules)
-- `.chezmoi.toml.tmpl` — prompts for git name/email on first init
-- `symlink_dot_vim` → `~/.vim` symlink pointing to `~/.dotfiles/vim`
-- `modify_dot_zshrc` — ensures `source ~/.dotfiles/zsh/zshrc.shared` in `~/.zshrc`
-- `modify_dot_vimrc` — ensures `source ~/.dotfiles/vim/vimrc.shared` in `~/.vimrc`
-- `modify_dot_tmux.conf` — ensures `source-file ~/.dotfiles/tmux/tmux.conf.shared` in `~/.tmux.conf`
-- `run_once_before_configure-git-user.sh.tmpl` — sets git user.name/email
-- `run_onchange_after_configure-git.sh.tmpl` — sets git include.path/excludesfile
-- `run_once_generate-ssh-key.sh.tmpl` — generates SSH key (first run only)
+The install script:
+- Updates all git submodules
+- Creates symlinks for vim, tmux, and git configs
+- Appends `source ~/.dotfiles/zsh/zshrc.shared` to `~/.zshrc` (does not symlink, to allow local additions)
+- Sets up git global config (user.name, user.email, excludesfile, include.path)
+- Installs binary tools (fzf, zoxide, ripgrep) via brew/apt/dnf
+- Installs TPM plugins for tmux
+- Generates SSH keys (initial install only)
 
 ## Architecture
 
@@ -57,42 +41,72 @@ ZSH config is split into shared (in-repo) and local (per-machine) parts:
 - **`zsh/zshrc.shared`** (in git) — portable config sourced by all machines
 - **`~/.zshrc`** (local, not in git) — machine-specific config (conda, homebrew, gcloud, API keys). Tools like `conda init` write here without dirtying the repo.
 
-The `modify_dot_zshrc` script ensures `source ~/.dotfiles/zsh/zshrc.shared` is present in `~/.zshrc` without overwriting local additions.
+The install script appends `source ~/.dotfiles/zsh/zshrc.shared` to `~/.zshrc` rather than symlinking, so local additions are preserved.
 
 ### ZSH Shared Config Loading Order
 
 `zsh/zshrc.shared` sources files in this sequence:
 
 1. `zsh/functions.sh` - PATH manipulation functions (path_remove, path_append, path_prepend)
-2. `zsh/plugins_before.zsh` - Pre-initialization plugins (zsh-completions, zsh-autosuggestions)
-3. `zsh/settings.zsh` - Core zsh settings (completion, history, vim keybindings)
+2. `zsh/plugins_before.zsh` - Pre-initialization plugins (zsh-completions, zsh-autosuggestions, zsh-you-should-use, zsh-autopair, zsh-history-substring-search)
+3. `zsh/settings.zsh` - Core zsh settings (completion, history, vim keybindings, fzf, fzf-tab, zoxide)
 4. `zsh/aliases.sh` - Aliases and shell functions
 5. `zsh/prompt.zsh` - Prompt configuration
-6. `zsh/plugins_after.zsh` - Post-initialization plugins (zsh-syntax-highlighting, dircolors)
+6. `zsh/plugins_after.zsh` - Post-initialization plugins (fzf-git.sh, zsh-syntax-highlighting, dircolors)
 
 ### Vim Plugin Management
 
-Uses Pathogen for plugin management. Plugins are defined in `.chezmoiexternal.toml` and deployed to `vim/bundle/`:
+Uses Pathogen for plugin management. Plugins are stored as git submodules in `vim/bundle/`:
 - lightline.vim - statusline
 - nerdtree - file explorer
 - nerdcommenter - commenting utilities
 - vim-colors-solarized - color scheme
 - vim-cpp-modern - C++ syntax highlighting
+- vim-fugitive - Git integration
+- vim-surround - surround text objects
+- fzf.vim - fuzzy finder integration
+- ale - asynchronous linting
+- vim-gitgutter - git diff in sign column
+- vim-repeat - repeat plugin maps with `.`
+- undotree - visual undo history
+- vim-polyglot - language pack collection
 
-### External Dependencies
+### Tmux Plugin Management
 
-All external plugins are managed via `.chezmoiexternal.toml` as GitHub archive downloads pinned to specific commit hashes. To update a plugin version, change the commit hash in the URL.
+Uses TPM (Tmux Plugin Manager) for tmux plugins. TPM is a git submodule in `tmux/plugins/tpm/`. Plugins declared via `set -g @plugin` in tmux.conf.shared:
+- tmux-sensible - sensible defaults
+- tmux-pain-control - pane navigation/resizing
+- tmux-prefix-highlight - prefix indicator in status bar
+- tmux-yank - clipboard integration
+- tmux-resurrect - session save/restore
+- tmux-continuum - automatic session saving
+- tmux-open - open files/URLs from tmux
+
+### Git Submodules
+
+All external dependencies are managed as git submodules (see `.gitmodules`). When modifying plugin versions, use:
+```bash
+git submodule update --init --recursive
+```
 
 ## Key Customizations
 
 **ZSH keybindings:**
 - Vi-style line editing (`bindkey -v`)
-- Ctrl-R for incremental search
+- Ctrl-R for fuzzy history search (fzf)
+- Tab for fuzzy completion (fzf-tab)
+- Up/Down arrows for history substring search
 - Menu completion with hjkl navigation
+- `z` command for smart directory jumping (zoxide)
 
 **Vim keybindings:**
 - Leader-n: Toggle NERDTree
 - Leader-f: Find current file in NERDTree
+- Leader-p: Fuzzy file finder (fzf)
+- Leader-b: Buffer list (fzf)
+- Leader-rg: Ripgrep search (fzf)
+- Leader-gs/gd/gb: Git status/diff/blame (fugitive)
+- Leader-u: Toggle undo tree
 - Ctrl-hjkl: Window navigation
 - H/L: Line beginning/end
 
@@ -105,15 +119,14 @@ All external plugins are managed via `.chezmoiexternal.toml` as GitHub archive d
 
 ## File Organization
 
-- `dot_dotfiles/git/` - Global git configuration and ignore patterns
-- `dot_dotfiles/shell/` - Shell plugins (dircolors-solarized via external)
-- `dot_dotfiles/tmux/` - Tmux configuration and plugins (tmux-prefix-highlight via external)
-- `dot_dotfiles/vim/` - Vim configuration, plugins (via external), and file-type settings
-- `dot_dotfiles/zsh/` - Zsh configuration files and plugins (via external)
+- `/git/` - Global git configuration and ignore patterns
+- `/shell/` - Shell plugins (dircolors-solarized)
+- `/tmux/` - Tmux configuration and plugins
+- `/vim/` - Vim configuration, plugins, and file-type settings
+- `/zsh/` - Zsh configuration files and plugins
 
 ## Important Notes
 
-- Chezmoi deploys config to `~/.dotfiles/` — all internal paths reference this location
+- The repository expects to be cloned/linked to `~/.dotfiles`
 - Machine-specific config (API keys, conda, homebrew paths) belongs in `~/.zshrc`, not in the repo
 - The config is set up for macOS (darwin) and Linux compatibility with OS-specific checks
-- The chezmoi source directory is at `~/.local/share/chezmoi/`

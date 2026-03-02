@@ -50,3 +50,21 @@ disable r
 
 # Prevent less from keeping history file
 export LESSHISTFILE=/dev/null
+
+# fzf shell integration (fuzzy finder)
+if [[ -f ~/.dotfiles/zsh/plugins/fzf/shell/completion.zsh ]]; then
+    source ~/.dotfiles/zsh/plugins/fzf/shell/completion.zsh
+fi
+if [[ -f ~/.dotfiles/zsh/plugins/fzf/shell/key-bindings.zsh ]]; then
+    source ~/.dotfiles/zsh/plugins/fzf/shell/key-bindings.zsh
+fi
+
+# fzf-tab (fuzzy tab completion, must be after compinit)
+if [[ -f ~/.dotfiles/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh ]]; then
+    source ~/.dotfiles/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
+fi
+
+# zoxide (smart cd)
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init zsh)"
+fi
