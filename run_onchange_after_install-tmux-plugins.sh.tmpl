@@ -7,7 +7,9 @@ set -euo pipefail
 TPM_DIR="$HOME/.dotfiles/tmux/plugins/tpm"
 
 if [ -x "$TPM_DIR/bin/install_plugins" ]; then
-    "$TPM_DIR/bin/install_plugins"
+    # Point TPM at the shared config where @plugin declarations live.
+    # By default TPM greps ~/.tmux.conf, which only has a source-file line.
+    TMUX_CONF="$HOME/.dotfiles/tmux/tmux.conf.shared" "$TPM_DIR/bin/install_plugins"
     echo "TPM plugins installed"
 else
     echo "TPM not found, skipping plugin install (run 'prefix + I' in tmux to install)"

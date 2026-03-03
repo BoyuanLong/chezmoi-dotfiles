@@ -174,3 +174,33 @@ Edit `.chezmoiexternal.toml` — change the commit hash in the plugin's archive 
 ## Customization
 
 Your local `~/.zshrc`, `~/.vimrc`, and `~/.tmux.conf` are not overwritten — the modify scripts only prepend a `source` line. Add machine-specific config below that line and it will persist across `chezmoi apply` runs.
+
+## Troubleshooting
+
+### TPM plugins not installing automatically
+
+If tmux plugin installation fails during setup, you can install them manually:
+
+```bash
+# Option 1: run the install script directly
+~/.dotfiles/tmux/plugins/tpm/bin/install_plugins
+
+# Option 2: open tmux and press prefix + I (Ctrl-a then Shift-i)
+tmux
+```
+
+### Plugins or configs not appearing
+
+Re-run chezmoi apply to re-download externals and re-run setup scripts:
+
+```bash
+chezmoi apply -v
+```
+
+### SSH key not generated
+
+If the SSH key script was skipped, generate one manually:
+
+```bash
+ssh-keygen -t ed25519 -C "your-email@example.com"
+```
