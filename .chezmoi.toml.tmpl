@@ -1,5 +1,23 @@
-{{- $name := promptStringOnce . "name" "Git user.name" -}}
-{{- $email := promptStringOnce . "email" "Git user.email" -}}
+{{- /* Reuse existing chezmoi data, then try git config, then prompt */ -}}
+{{- $name := "" -}}
+{{- if hasKey . "name" -}}
+{{-   $name = .name -}}
+{{- else -}}
+{{-   $name = output "sh" "-c" "git config --global user.name 2>/dev/null || true" | trim -}}
+{{- end -}}
+{{- if eq $name "" -}}
+{{-   $name = promptString "Git user.name" -}}
+{{- end -}}
+
+{{- $email := "" -}}
+{{- if hasKey . "email" -}}
+{{-   $email = .email -}}
+{{- else -}}
+{{-   $email = output "sh" "-c" "git config --global user.email 2>/dev/null || true" | trim -}}
+{{- end -}}
+{{- if eq $email "" -}}
+{{-   $email = promptString "Git user.email" -}}
+{{- end -}}
 
 [data]
     name = {{ $name | quote }}
