@@ -1,0 +1,21 @@
+#!/bin/bash
+# Ensure .bashrc launches zsh if available (for systems where bash is the default shell)
+# Read existing content from stdin (chezmoi passes current file contents)
+contents="$(cat)"
+marker='# Auto-launch zsh'
+
+if echo "$contents" | grep -qF "$marker"; then
+    # Already has the block, output unchanged
+    printf '%s' "$contents"
+else
+    # Append auto-launch block to existing content
+    block='# Auto-launch zsh
+if [ -x "$(command -v zsh)" ]; then
+    exec zsh -l
+fi'
+    if [ -n "$contents" ]; then
+        printf '%s\n\n%s\n' "$contents" "$block"
+    else
+        printf '%s\n' "$block"
+    fi
+fi

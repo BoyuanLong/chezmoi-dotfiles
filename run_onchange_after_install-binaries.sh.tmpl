@@ -30,6 +30,23 @@ install_binary() {
 }
 
 install_binary zsh zsh
+
+# Change default shell to zsh if it isn't already
+current_shell="$(basename "$SHELL")"
+if [ "$current_shell" != "zsh" ] && command -v zsh &>/dev/null; then
+    zsh_path="$(command -v zsh)"
+    # Ensure zsh is in /etc/shells
+    if ! grep -qF "$zsh_path" /etc/shells 2>/dev/null; then
+        echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
+    fi
+    echo "Changing default shell to zsh..."
+    if chsh -s "$zsh_path" 2>/dev/null; then
+        echo "Default shell changed to zsh"
+    else
+        echo "WARNING: could not change default shell (try: chsh -s $zsh_path)"
+    fi
+fi
+
 install_binary tmux tmux
 install_binary fzf fzf
 install_binary zoxide zoxide
