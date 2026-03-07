@@ -1,0 +1,26 @@
+#!/bin/bash
+# Ensure ~/.bashrc adds ~/bin to PATH and launches zsh if available
+# Read existing content from stdin (chezmoi passes current file contents)
+contents="$(cat)"
+marker='# chezmoi-managed block'
+
+if echo "$contents" | grep -qF "$marker"; then
+    # Already has the block, output unchanged
+    printf '%s' "$contents"
+else
+    # Append managed block to existing content
+    block='# chezmoi-managed block
+# Add ~/bin to PATH (where chezmoi and other tools live)
+if [ -d "$HOME/bin" ] && [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
+    export PATH="$HOME/bin:$PATH"
+fi
+# Auto-launch zsh
+if [ -x "$(command -v zsh)" ]; then
+    exec zsh -l
+fi'
+    if [ -n "$contents" ]; then
+        printf '%s\n\n%s\n' "$contents" "$block"
+    else
+        printf '%s\n' "$block"
+    fi
+fi

@@ -5,11 +5,12 @@ Personal dotfiles managed by [chezmoi](https://www.chezmoi.io/). Configurations 
 ## Install on a new machine
 
 ```bash
-brew install chezmoi   # or: sh -c "$(curl -fsLS get.chezmoi.io)"
-chezmoi init --apply BoyuanLong/chezmoi-dotfiles
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/bin" init --apply BoyuanLong/chezmoi-dotfiles
 ```
 
-You'll be prompted for your git name and email. Everything else is automatic:
+This single command installs chezmoi to `~/bin`, clones the dotfiles, and applies everything. On macOS you can also `brew install chezmoi` first, then run `chezmoi init --apply BoyuanLong/chezmoi-dotfiles`.
+
+If git user.name and email are already configured, they'll be detected automatically. Otherwise you'll be prompted. Everything else is automatic:
 - Config files deployed to `~/.dotfiles/`
 - Plugins downloaded (vim, zsh, tmux, dircolors)
 - `~/.vim` symlinked, source lines added to `~/.zshrc`, `~/.vimrc`, `~/.tmux.conf`
