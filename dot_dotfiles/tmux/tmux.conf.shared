@@ -1,5 +1,5 @@
-# improve colors
-set -g default-terminal 'screen-256color'
+# improve colors — use tmux-256color so programs know the terminal is capable
+set -g default-terminal 'tmux-256color'
 
 # act like vim
 setw -g mode-keys vi
@@ -56,8 +56,8 @@ set -g display-panes-time 2000
 
 set -g status-left-length 20
 set -g status-right-length 100
-set -g status-left '#{?pane_input_off,#[fg=colour160],#[fg=colour136]}[#[fg=colour136]#S:#I.#P#{?pane_input_off,#[fg=colour160],#[fg=colour136]}] '
-set -g status-right '#{prefix_highlight} #[fg=colour166]#([ "$(tmux show-option -g prefix)" != "prefix C-a" ] && echo "($(tmux show-option -g prefix | cut -c 8-)) ")#[fg=colour33]%d %b %Y #{?client_prefix,#[fg=colour160],#[fg=colour61]}- #[fg=colour64]%I:%M %p #{?client_prefix,#[fg=colour160],#[fg=colour61]}- #[fg=colour37]#([ -f $HOME/.name ] && cat $HOME/.name || hostname)'
+set -g status-left '#{?pane_input_off,#[fg=red],#[fg=yellow]}[#[fg=yellow]#S:#I.#P#{?pane_input_off,#[fg=red],#[fg=yellow]}] '
+set -g status-right '#{prefix_highlight} #[fg=colour166]#([ "$(tmux show-option -g prefix)" != "prefix C-a" ] && echo "($(tmux show-option -g prefix | cut -c 8-)) ")#[fg=blue]%d %b %Y #{?client_prefix,#[fg=red],#[fg=magenta]}- #[fg=green]%I:%M %p #{?client_prefix,#[fg=red],#[fg=magenta]}- #[fg=cyan]#([ -f $HOME/.name ] && cat $HOME/.name || hostname)'
 
 # increase scrollback lines
 set -g history-limit 65536
@@ -103,22 +103,22 @@ set -g @prefix_highlight_sync_prompt 'Sync'
 # tmux-continuum settings
 set -g @continuum-restore 'on'
 
-#### color (Solarized 256)
-set -g status-style bg=colour237,fg=colour136
-setw -g window-status-style fg=colour244
+#### color (Solarized 16 — uses ANSI colors set by the terminal preset)
+set -g status-style bg=black,fg=yellow
+setw -g window-status-style fg=brightblue
 setw -g window-status-current-style fg=colour166
-setw -g window-status-activity-style fg=colour61
-setw -g window-status-bell-style fg=colour61
-set -g pane-border-style fg=colour240
-set -g pane-active-border-style fg=colour247
-set -g message-style bg=colour235,fg=colour166
+setw -g window-status-activity-style fg=magenta
+setw -g window-status-bell-style fg=magenta
+set -g pane-border-style fg=brightgreen
+set -g pane-active-border-style fg=brightcyan
+set -g message-style bg=black,fg=colour166
 
 # pane number display
 set -g display-panes-active-colour colour166 #orange
-set -g display-panes-colour colour33 #blue
+set -g display-panes-colour blue
 
 # clock
-setw -g clock-mode-colour colour64 #green
+setw -g clock-mode-colour green
 
 # Set TPM plugin path
 set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.dotfiles/tmux/plugins'

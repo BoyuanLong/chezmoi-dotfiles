@@ -30,16 +30,13 @@ elseif &t_Co < 256
     colorscheme default
     set nocursorline " looks bad in this mode
 else
+    " Use 16 ANSI colors — relies on the terminal (e.g. iTerm2) having
+    " Solarized as its color preset, which maps the 16 colors correctly.
+    " This avoids the muddy 256-color approximations.
     set background=dark
-    let g:solarized_termcolors=256 " instead of 16 color with mapping in terminal
     colorscheme solarized
-    " customized colors
-    highlight SignColumn ctermbg=234
-    highlight StatusLine cterm=bold ctermfg=245 ctermbg=235
-    highlight StatusLineNC cterm=bold ctermfg=245 ctermbg=235
     let g:lightline = {'colorscheme': 'dark'}
     highlight SpellBad cterm=underline
-    " patches
     highlight CursorLineNr cterm=NONE
 endif
 
@@ -78,7 +75,7 @@ set smartcase
 set wildmode=longest,list
 set wildmenu
 set mouse+=a " enable mouse mode (scrolling, selection, etc)
-if &term =~ '^screen'
+if &term =~ '^screen\|^tmux'
     " tmux knows the extended mouse mode
     set ttymouse=xterm2
 endif
