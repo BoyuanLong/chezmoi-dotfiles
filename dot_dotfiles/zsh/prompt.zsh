@@ -14,43 +14,14 @@ setopt prompt_subst
 # Load color variables to make it easier to color things
 autoload -U colors && colors
 
-# Make using 256 colors easier
-if [[ "$COLORTERM" == "truecolor" || "$COLORTERM" == "24bit" ]]; then
-    # true color — use exact Solarized hex values for crisp colors on any background
-    fg[red]=$'\e[38;2;220;50;47m'       # dc322f
-    fg[green]=$'\e[38;2;133;153;0m'     # 859900
-    fg[yellow]=$'\e[38;2;181;137;0m'    # b58900
-    fg[blue]=$'\e[38;2;38;139;210m'     # 268bd2
-    fg[magenta]=$'\e[38;2;211;54;130m'  # d33682
-    fg[cyan]=$'\e[38;2;42;161;152m'     # 2aa198
-
-    fg[teal]=$'\e[38;2;42;161;152m'     # 2aa198
-    fg[orange]=$'\e[38;2;203;75;22m'    # cb4b16
-    fg[violet]=$'\e[38;2;108;113;196m'  # 6c71c4
-    fg[neon]=$'\e[38;2;133;153;0m'      # 859900
-    fg[pink]=$'\e[38;2;211;54;130m'     # d33682
-elif [[ "$(tput colors)" == "256" ]]; then
-    source ~/.dotfiles/zsh/plugins/spectrum.zsh
-    # change default colors
-    fg[red]=$FG[160]
-    fg[green]=$FG[064]
-    fg[yellow]=$FG[136]
-    fg[blue]=$FG[033]
-    fg[magenta]=$FG[125]
-    fg[cyan]=$FG[037]
-
-    fg[teal]=$FG[041]
-    fg[orange]=$FG[166]
-    fg[violet]=$FG[061]
-    fg[neon]=$FG[112]
-    fg[pink]=$FG[183]
-else
-    fg[teal]=$fg[blue]
-    fg[orange]=$fg[yellow]
-    fg[violet]=$fg[magenta]
-    fg[neon]=$fg[green]
-    fg[pink]=$fg[magenta]
-fi
+# Use the standard 16 ANSI colors — these map to the Solarized palette
+# when the terminal (e.g. iTerm2) has Solarized as its color preset.
+# No 256-color overrides needed; the terminal handles the palette.
+fg[teal]=$fg[cyan]
+fg[orange]=$'\e[38;5;9m' # bright red = Solarized orange
+fg[violet]=$'\e[38;5;13m' # bright magenta = Solarized violet
+fg[neon]=$fg[green]
+fg[pink]=$fg[magenta]
 
 # Current directory, truncated to 3 path elements (or 4 when one of them is "~")
 # The number of elements to keep can be specified as ${1}
