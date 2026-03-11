@@ -15,7 +15,21 @@ setopt prompt_subst
 autoload -U colors && colors
 
 # Make using 256 colors easier
-if [[ "$(tput colors)" == "256" ]]; then
+if [[ "$COLORTERM" == "truecolor" || "$COLORTERM" == "24bit" ]]; then
+    # true color — use exact Solarized hex values for crisp colors on any background
+    fg[red]=$'\e[38;2;220;50;47m'       # dc322f
+    fg[green]=$'\e[38;2;133;153;0m'     # 859900
+    fg[yellow]=$'\e[38;2;181;137;0m'    # b58900
+    fg[blue]=$'\e[38;2;38;139;210m'     # 268bd2
+    fg[magenta]=$'\e[38;2;211;54;130m'  # d33682
+    fg[cyan]=$'\e[38;2;42;161;152m'     # 2aa198
+
+    fg[teal]=$'\e[38;2;42;161;152m'     # 2aa198
+    fg[orange]=$'\e[38;2;203;75;22m'    # cb4b16
+    fg[violet]=$'\e[38;2;108;113;196m'  # 6c71c4
+    fg[neon]=$'\e[38;2;133;153;0m'      # 859900
+    fg[pink]=$'\e[38;2;211;54;130m'     # d33682
+elif [[ "$(tput colors)" == "256" ]]; then
     source ~/.dotfiles/zsh/plugins/spectrum.zsh
     # change default colors
     fg[red]=$FG[160]

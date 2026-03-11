@@ -1,5 +1,9 @@
 # improve colors
-set -g default-terminal 'screen-256color'
+set -g default-terminal 'tmux-256color'
+# enable true color (24-bit) for terminals that support it (e.g. iTerm2)
+set -ga terminal-overrides ',xterm-256color:Tc,alacritty:Tc'
+# pass COLORTERM through so programs inside tmux know true color is available
+set -ga update-environment 'COLORTERM'
 
 # act like vim
 setw -g mode-keys vi
