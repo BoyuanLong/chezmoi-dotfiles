@@ -5,6 +5,7 @@
 set -euo pipefail
 
 TPM_DIR="$HOME/.dotfiles/tmux/plugins/tpm"
+export TMUX_PLUGIN_MANAGER_PATH="$HOME/.dotfiles/tmux/plugins"
 
 if [ -x "$TPM_DIR/bin/install_plugins" ]; then
     "$TPM_DIR/bin/install_plugins"
