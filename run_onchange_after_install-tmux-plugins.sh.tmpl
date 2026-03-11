@@ -1,15 +1,7 @@
 #!/bin/bash
-# Install TPM plugins when tmux config changes
+# Tmux plugins are now installed via .chezmoiexternal.toml.
+# This script just logs when the tmux config changes.
 # tmux.conf.shared hash: {{ include "dot_dotfiles/tmux/tmux.conf.shared" | sha256sum }}
 
-set -euo pipefail
-
-TPM_DIR="$HOME/.dotfiles/tmux/plugins/tpm"
-export TMUX_PLUGIN_MANAGER_PATH="$HOME/.dotfiles/tmux/plugins"
-
-if [ -x "$TPM_DIR/bin/install_plugins" ]; then
-    "$TPM_DIR/bin/install_plugins"
-    echo "TPM plugins installed"
-else
-    echo "TPM not found, skipping plugin install (run 'prefix + I' in tmux to install)"
-fi
+echo "Tmux config updated. Plugins are managed by chezmoi external."
+echo "Reload tmux config with: prefix + C-r (or tmux source-file ~/.tmux.conf)"
