@@ -12,12 +12,14 @@ if [ ! -x "$TPM_DIR/bin/install_plugins" ]; then
     exit 0
 fi
 
-# Ensure the tmux server knows about TMUX_PLUGIN_MANAGER_PATH.
-# TPM's install_plugins reads this from the tmux server environment,
-# not from the shell environment, so we must set it on the server.
-if command -v tmux &>/dev/null && tmux list-sessions &>/dev/null 2>&1; then
-    tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$TMUX_PLUGIN_MANAGER_PATH"
+# TPM's install_plugins requires a running tmux server to read plugin
+# definitions and TMUX_PLUGIN_MANAGER_PATH from the server environment.
+if ! command -v tmux &>/dev/null || ! tmux list-sessions &>/dev/null 2>&1; then
+    echo "No tmux server running, skipping plugin install (run 'prefix + I' inside tmux to install)"
+    exit 0
 fi
+
+tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$TMUX_PLUGIN_MANAGER_PATH"
 
 if "$TPM_DIR/bin/install_plugins"; then
     echo "TPM plugins installed"
