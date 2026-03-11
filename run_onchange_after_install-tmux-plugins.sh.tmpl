@@ -2,14 +2,25 @@
 # Install TPM plugins when tmux config changes
 # tmux.conf.shared hash: {{ include "dot_dotfiles/tmux/tmux.conf.shared" | sha256sum }}
 
-set -euo pipefail
+set -uo pipefail
 
 TPM_DIR="$HOME/.dotfiles/tmux/plugins/tpm"
 export TMUX_PLUGIN_MANAGER_PATH="$HOME/.dotfiles/tmux/plugins"
 
-if [ -x "$TPM_DIR/bin/install_plugins" ]; then
-    "$TPM_DIR/bin/install_plugins"
+if [ ! -x "$TPM_DIR/bin/install_plugins" ]; then
+    echo "TPM not found, skipping plugin install (run 'prefix + I' in tmux to install)"
+    exit 0
+fi
+
+# Ensure the tmux server knows about TMUX_PLUGIN_MANAGER_PATH.
+# TPM's install_plugins reads this from the tmux server environment,
+# not from the shell environment, so we must set it on the server.
+if command -v tmux &>/dev/null && tmux list-sessions &>/dev/null 2>&1; then
+    tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$TMUX_PLUGIN_MANAGER_PATH"
+fi
+
+if "$TPM_DIR/bin/install_plugins"; then
     echo "TPM plugins installed"
 else
-    echo "TPM not found, skipping plugin install (run 'prefix + I' in tmux to install)"
+    echo "TPM plugin install failed (non-fatal). Run 'prefix + I' inside tmux to install manually."
 fi
