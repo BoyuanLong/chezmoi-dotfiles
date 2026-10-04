@@ -1,6 +1,14 @@
 # Load functions
 source ~/.dotfiles/zsh/functions.sh
 
+# Local settings that run before shared configuration
+if [[ -f ~/.shell_local_before ]]; then
+    source ~/.shell_local_before
+fi
+if [[ -f ~/.zshrc_local_before ]]; then
+    source ~/.zshrc_local_before
+fi
+
 # External plugins (initialized before)
 # For now we only have zsh-completions
 source ~/.dotfiles/zsh/plugins_before.zsh
@@ -16,6 +24,14 @@ source ~/.dotfiles/zsh/prompt.zsh
 
 # External plugins
 source ~/.dotfiles/zsh/plugins_after.zsh
+
+# Local settings that run after shared configuration
+if [[ -f ~/.shell_local_after ]]; then
+    source ~/.shell_local_after
+fi
+if [[ -f ~/.zshrc_local_after ]]; then
+    source ~/.zshrc_local_after
+fi
 
 path_prepend "$HOME/bin"
 path_prepend "$HOME/.local/bin"

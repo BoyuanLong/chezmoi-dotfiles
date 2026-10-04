@@ -1,3 +1,6 @@
+# Use the account's default login shell for new windows and panes.
+run-shell '~/.dotfiles/tmux/set-default-shell.sh'
+
 # improve colors — use tmux-256color so programs know the terminal is capable
 set -g default-terminal 'tmux-256color'
 
@@ -122,6 +125,9 @@ setw -g clock-mode-colour green
 
 # Set TPM plugin path
 set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.dotfiles/tmux/plugins'
+
+# Local settings can override shared defaults and plugin options.
+if-shell '[ -f "$HOME/.tmux_local.conf" ]' 'source-file ~/.tmux_local.conf'
 
 # Initialize TPM (keep this line at the very bottom)
 run '~/.dotfiles/tmux/plugins/tpm/tpm'

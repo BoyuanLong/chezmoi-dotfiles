@@ -152,3 +152,8 @@ if has('persistent_undo')
         call mkdir(&undodir, 'p')
     endif
 endif
+
+" Local settings override shared defaults.
+if filereadable(expand('~/.vimrc_local'))
+    source ~/.vimrc_local
+endif

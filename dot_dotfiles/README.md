@@ -37,6 +37,22 @@ cd ~/.local/share/chezmoi
 git add -A && git commit -m "message" && git push
 ```
 
+## Local settings
+
+Keep machine-specific settings and credentials in `~/.zshrc`, after the shared
+source line. This file stays local; chezmoi preserves its contents when updating.
+
+Existing local override files are also supported:
+- `~/.shell_local_before` and `~/.zshrc_local_before` run before shared shell settings.
+- `~/.shell_local_after` and `~/.zshrc_local_after` run after shared shell settings.
+- `~/.vimrc_local` overrides shared Vim settings.
+- `~/.tmux_local.conf` overrides shared tmux settings before plugins initialize.
+
+When migrating from legacy symlinked rc files, back up `~/.dotfiles` and the rc
+symlinks first. Keep only machine-specific additions in the new `~/.zshrc`;
+chezmoi adds the shared source line. Keeping the old shared configuration there
+would initialize plugins twice and override the new settings.
+
 ## Update a plugin version
 
 Edit `.chezmoiexternal.toml` — change the commit hash in the archive URL, then `chezmoi apply`.
