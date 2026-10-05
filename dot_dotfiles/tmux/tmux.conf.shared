@@ -4,6 +4,9 @@ run-shell '~/.dotfiles/tmux/set-default-shell.sh'
 # improve colors — use tmux-256color so programs know the terminal is capable
 set -g default-terminal 'tmux-256color'
 
+# Allow applications to request extended key sequences.
+set -s extended-keys on
+
 # act like vim
 setw -g mode-keys vi
 bind -r C-h select-window -t :-
